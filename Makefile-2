@@ -1,0 +1,23 @@
+
+all:prog-add
+
+STEP1:add.asm
+	nasm -felf64 add.asm
+
+A:prog-add.c
+	gcc -E prog-add.c -o prog-add.i
+
+B:A
+	gcc -S prog-add.i
+C: B
+	gcc -c prog-add.s
+prog-add:C STEP1
+	gcc prog-add.o add.o
+clean:
+	rm -f *.o prog-add
+	rm -f *.o prog-add.i
+	rm -f *.o prog-add.s
+	rm -f *.o prog-add.o
+	rm -f *.o STEP1
+	
+	
